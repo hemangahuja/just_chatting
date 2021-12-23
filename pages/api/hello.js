@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   const username = payload.username;
   const color = payload.color;
   
-  pusher.trigger(channel, "message", {
+  await pusher.trigger(channel, "message", {
     username,
     message,
     color,
