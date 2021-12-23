@@ -10,6 +10,11 @@ const pusher = new Pusher({
 
 export default async function handler(req, res) {
 
+  console.log(process.env.PUSHER_APP_KEY);
+  console.log(process.env.PUSHER_APP_SECRET);
+  console.log(process.env.PUSHER_APP_CLUSTER);
+  console.log(process.env.PUSHER_APP_ID);
+
   const payload = req.body;
   
   const channel = payload.channel;
