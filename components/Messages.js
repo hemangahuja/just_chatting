@@ -4,14 +4,20 @@ export default function Messages({chats , username , myColor}){
     
     useEffect(() => {
       window.scrollTo(0, document.body.scrollHeight);
+      console.log(chats);
     }, [chats]);
     return (
         <div className="chats-container">
-          {chats.map((chat , index) => {
+          {chats.map((item , index) => {
             return (
               <div key={index}>
                 {
-                  chat.username === username ?
+                  item.type == "update" ? (
+                    <div className="chat-update" style={{color : item.data.color}}>
+                      {item.data.message}
+                    </div>
+                  ) : (
+                  item.data.username === username ?
                   
                   (<div className="chat-bubble-container-right">
                     <div className="chat-bubble-right" style={
@@ -19,24 +25,25 @@ export default function Messages({chats , username , myColor}){
                         backgroundColor: myColor
                       }
                     }>
-                      {chat.message}
+                      {item.data.message}
                     </div>
                   </div>)
                   :
                   (<div className="chat-bubble-container-left">
                     <div className="chat-bubble-left" style={
                       {
-                        backgroundColor: chat.color
+                        backgroundColor: item.data.color
                       }
                     }>
                       <div>
-                      ~{chat.username}
+                      ~{item.data.username}
                       </div>
-                      {chat.message}
+                      {item.data.message}
                     </div>
                       
                   </div>
                   ) 
+                  )
                 }
               </div>
             );

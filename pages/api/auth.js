@@ -13,13 +13,15 @@ const pusher = new Pusher({
 export default async function Auth(req,res){
 
     const randomID = Math.random().toString(36).slice(2);
-    const randomInfo = Math.random().toString(36).slice(2);
     const sockID = req.body.socket_id;
     const channel = req.body.channel_name;
+    const username = req.body.username;
+    const color = req.body.color;
     const presenceData = {
         user_id: randomID,
         user_info: {
-            name: randomInfo
+            name: username,
+            color
         }
     }
     try{

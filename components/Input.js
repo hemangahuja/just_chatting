@@ -4,13 +4,30 @@ import axios from "axios";
 const ChatInput = ({ channel, username , color}) => {
     const [message, setMessage] = useState("");
     const [showErr, setShowErr] = useState(false);
-  
+    const [canSend, setCanSend] = useState(true);
+    const throttle = 200;
+
+    const handleChange = (e) =>{
+      setMessage(e);
+        if(canSend){
+          axios.post(`/api/typing`, {
+            channel: "presence-" + channel,
+            username,
+          });
+
+          setCanSend(false);
+          setTimeout(() => {
+            setCanSend(true);
+          }, throttle);
+      
+      }
+    }
     const sendMessage = (e) => {
         
       e.preventDefault();
       if (message.trim().length > 0) {
         let data = {
-          channel : channel,
+          channel : "presence-" + channel,
           username : username,
           message : message,
           color : color
@@ -29,9 +46,8 @@ const ChatInput = ({ channel, username , color}) => {
       <form  onSubmit={(e) => sendMessage(e)}>
         <input
           type="text"
-          
           value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => handleChange(e.target.value)}
         />
         <button >
           Send
