@@ -14,14 +14,14 @@ export default async function handler(req, res) {
   const payload = req.body;
   
   const channel = payload.channel;
-  const message = payload.message;
+  const image = payload.image;
   const username = payload.username;
   const color = payload.color;
   const time = payload.time;
 
-  await pusher.trigger(channel, "message", {
+  await pusher.trigger(channel, "image", {
     username,
-    message,
+    image,
     color,
     time,
   });

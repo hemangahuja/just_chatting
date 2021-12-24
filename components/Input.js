@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
+import ImageUpload from "./ImageInput";
 
-const ChatInput = ({ channel, username , color}) => {
+
+const ChatInput = ({ channel, username , color , addMessage , addImage}) => {
     const [message, setMessage] = useState("");
     const [showErr, setShowErr] = useState(false);
     const [canSend, setCanSend] = useState(true);
@@ -22,6 +24,19 @@ const ChatInput = ({ channel, username , color}) => {
       
       }
     }
+    const sendImage = (image) => {
+      let data = {
+        channel: "presence-" + channel,
+        username,
+        image,
+        color,
+        time : Date.now(),
+        ack : true
+      }
+      addImage(data);
+      axios.post(`/api/image`, data);
+      
+    }
     const sendMessage = (e) => {
         
       e.preventDefault();
@@ -30,9 +45,13 @@ const ChatInput = ({ channel, username , color}) => {
           channel : "presence-" + channel,
           username : username,
           message : message,
-          color : color
+          color : color,
+          time : Date.now(),
+          ack : true
         };
         
+      addMessage(data);  
+      
         setShowErr(false);
         axios
           .post(`/api/hello`, data)
@@ -43,17 +62,28 @@ const ChatInput = ({ channel, username , color}) => {
     };
   
     return (
-      <form  onSubmit={(e) => sendMessage(e)}>
+      <><form 
+      style={{
+        padding : "10px",
+        margin : "0px"
+      }}
+      onSubmit={(e) => sendMessage(e)}>
         <input
+        style={{
+          marginBottom : "0px",
+        }}
           type="text"
           value={message}
-          onChange={(e) => handleChange(e.target.value)}
-        />
-        <button >
+          onChange={(e) => handleChange(e.target.value)} />
+        <button style={{
+          marginTop : "0px",
+          marginBottom : "0px",
+        }}>
           Send
         </button>
-        {showErr && <div >Enter your message</div>}
-      </form>
+        {showErr && <div>Enter your message</div>}
+      </form><ImageUpload onUploaded={sendImage}>
+        </ImageUpload></>
     );
   };
   

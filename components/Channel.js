@@ -18,6 +18,7 @@ export default function Channel({ handleJoinBtn }){
         setShowError(true);
       }
     };
+
     return (
       <div >
         <h1 style={
