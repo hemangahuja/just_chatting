@@ -24,8 +24,14 @@ export default function ImageUpload({onUploaded}) {
     useEffect(() => {
         window.addEventListener('paste', e => {
             console.log(e.clipboardData.files[0]);
+            if(e.clipboardData.files[0].size > 5000000){
+                setError('Image size should be less than 5MB');
+                document.getElementById('image-input').value = '';
+                return;
+            }
             setImage(e.clipboardData.files[0]);
             document.getElementById('image-message').files = e.clipboardData.files;
+            setError(null);
         })
         return () => {
             window.removeEventListener('paste', e => {
@@ -36,7 +42,13 @@ export default function ImageUpload({onUploaded}) {
     const handleChange = e => {
         if(e.target.files[0]){
             console.log(e.target.files[0]);
+            if(e.target.files[0].size > 5000000){
+                setError('Image size should be less than 5MB');
+                document.getElementById('image-message').value = '';
+                return;
+            }
             setImage(e.target.files[0]);
+            setError(null);
         }
     }
     const handleUpload = () => {
@@ -67,7 +79,7 @@ export default function ImageUpload({onUploaded}) {
               
                 margin : "0px",
             }}
-            id = "image-message" type="file" onChange={handleChange}/>
+            id = "image-message" type="file" accept='image/*' onChange={handleChange}/>
             <button style={{
                 marginLeft : "10px",
             }}
