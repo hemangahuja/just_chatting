@@ -20,6 +20,9 @@ const ChatScreen = ({ channelName, userName , color}) => {
     }
   };
   const showNotification = (title, body) => {
+    if(document.visibilityState === "visible"){
+      return;
+    }
     if (Notification.permission !== "granted") {
       return;
     }
