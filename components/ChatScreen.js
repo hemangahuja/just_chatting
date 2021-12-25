@@ -15,7 +15,7 @@ const ChatScreen = ({ channelName, userName , color}) => {
   var clearTimer;
 
   const requestNotificationPermission = async () => {
-    if (Notification.permission !== "denied") {
+    if (Notification.permission !== "denied" || Notification.permission !== "granted") {
       await Notification.requestPermission();
     }
   };
@@ -30,6 +30,10 @@ const ChatScreen = ({ channelName, userName , color}) => {
       body,
       icon: '/icon.png',
     });
+    notification.onclick = () => {
+      window.focus();
+      notification.close();
+    }
   }
   const addMessage = (message) => {
     setChats([...chats, {
@@ -158,7 +162,7 @@ const ChatScreen = ({ channelName, userName , color}) => {
           There are {totalUsers} users in channel <i>{channelName}</i> !
         </div>
         <button style={{marginTop : "10px"}} onClick={()=>setLoadJitsi(!loadJitsi)}>Toggle Jitsi</button>
-        {loadJitsi && <Jitsi containerStyle={{width : '500px' , height : '200px'}} config={{prejoinPageEnabled : false  , startAudioMuted : 0 , startVideoMuted : 0}} roomName={"just_chatting_jitsi_meeting_presence-" + channelName} displayName={userName}/>}
+        {loadJitsi && <Jitsi containerStyle={{width : '500px' , height : '200px'}} config={{prejoinPageEnabled : false  , startAudioMuted : 0 , startVideoMuted : 0 , startWithAudioMuted : true , startWithVideoMuted : true}} roomName={"just_chatting_jitsi_meeting_presence-" + channelName} displayName={userName}/>}
         <Messages chats={chats} username={userName} myColor = {color} />
         <div>
           {typingText && <div>{typingText}</div>}
