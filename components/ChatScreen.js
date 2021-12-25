@@ -25,7 +25,7 @@ const ChatScreen = ({ channelName, userName , color}) => {
     }
     let notification = new Notification(title, {
       body,
-      icon: '/public/icon.png',
+      icon: '/icon.png',
     });
   }
   const addMessage = (message) => {

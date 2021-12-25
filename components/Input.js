@@ -51,12 +51,12 @@ const ChatInput = ({ channel, username , color , addMessage , addImage}) => {
         };
         
       addMessage(data);  
-      
+      setMessage(""); 
         setShowErr(false);
         axios
           .post(`/api/hello`, data)
           .then(() => {
-            setMessage(""); 
+            
           });
       } else setShowErr(true);
     };
