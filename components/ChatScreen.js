@@ -147,7 +147,7 @@ const ChatScreen = ({ channelName, userName , color}) => {
   return (
     <div>
       <div>
-        <h3 style={
+        <h4 style={
           {
             color: color,
             marginBottom: "0px"
@@ -155,14 +155,14 @@ const ChatScreen = ({ channelName, userName , color}) => {
         }>
          { (userName == "prerna" || userName == "Prerna") ? "Hello cutiepie! " : "Hello " + userName + "! "}
         <Image src = {'/chatting.gif'} alt = 'emote' width={100} height={100}/>
-        </h3>
+        </h4>
         <div style={{
           paddingTop: "0px",
         }}>
           There are {totalUsers} users in channel <i>{channelName}</i> !
         </div>
         <button style={{marginTop : "10px"}} onClick={()=>setLoadJitsi(!loadJitsi)}>Toggle Jitsi</button>
-        {loadJitsi && <Jitsi containerStyle={{width : '500px' , height : '200px'}} config={{prejoinPageEnabled : false  , startAudioMuted : 0 , startVideoMuted : 0 , startWithAudioMuted : true , startWithVideoMuted : true}} roomName={"just_chatting_jitsi_meeting_presence-" + channelName} displayName={userName}/>}
+        {loadJitsi && <Jitsi containerStyle={{width : '700px' , height : '250px' , position : "fixed" , top : "0px" , right : "0px"}} config={{prejoinPageEnabled : false  , startAudioMuted : 0 , startVideoMuted : 0 , startWithAudioMuted : true , startWithVideoMuted : true}} roomName={"just_chatting_jitsi_meeting_presence-" + channelName} displayName={userName}/>}
         <Messages chats={chats} username={userName} myColor = {color} />
         <div>
           {typingText && <div>{typingText}</div>}

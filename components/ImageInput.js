@@ -20,7 +20,7 @@ export default function ImageUpload({onUploaded}) {
     
    const [image, setImage] = useState(null);
     const [error, setError] = useState(null);
-
+    const [progress, setProgress] = useState(0);
     useEffect(() => {
         window.addEventListener('paste', e => {
             console.log(e.clipboardData.files[0]);
@@ -56,11 +56,13 @@ export default function ImageUpload({onUploaded}) {
             setError("No image selected");
             return;
         }
+        setProgress(5);
         const storageRef = ref(storage , `images/${image.name}`);
         const uploadTask = uploadBytesResumable(storageRef, image);
         uploadTask.on('state_changed', 
             (snapshot) => {
-                return;
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setProgress(progress);
             },
         (error) => {
             setError(error);
@@ -69,6 +71,9 @@ export default function ImageUpload({onUploaded}) {
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
                     setError(null);
                     onUploaded(url);
+                    document.getElementById('image-message').value = '';
+                    setImage(null);
+                    setProgress(0);
                 });
             })
         }
@@ -84,7 +89,7 @@ export default function ImageUpload({onUploaded}) {
                 marginLeft : "10px",
             }}
             onClick={handleUpload}>Upload</button>
-            {error}
+            {error} {progress > 0 && "Sending " + progress + '%'}
         </div>
     )
 }

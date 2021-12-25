@@ -42,7 +42,7 @@ export default function Messages({chats , username , myColor}){
                         </div>
                       ) : (
                         <div className="chat-bubble-container-left">
-                          <div className="chat-bubble-left" style={{backgroundColor:item.data.color}}>
+                          <div className="chat-bubble-left" style={{borderRadius : "20%", color : item.data.color, background:"black" , padding : "0.2rem"}}>
                             ~{item.data.username}
                             <img className = "chat-image" src={item.data.image} alt="image" width={150} height={200} />
                             <div
@@ -83,7 +83,9 @@ export default function Messages({chats , username , myColor}){
                         backgroundColor: item.data.color
                       }
                     }>
-                      <div>
+                      <div style={
+                        {borderRadius : "20%", color : item.data.color, background:"mintcream" , padding : "0.2rem" , width : "fit-content" , fontSize : "0.9rem"}
+                      }>
                       ~{item.data.username}
                       </div>
                       {item.data.message}
