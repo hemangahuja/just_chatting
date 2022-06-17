@@ -5,7 +5,7 @@ function MyApp({ Component, pageProps }) {
   return (<>
     <link
     rel="stylesheet"
-    href="https://cdn.rawgit.com/kimeiga/bahunya/css/bahunya-0.1.3.css"
+    href="https://cdn.jsdelivr.net/gh/kimeiga/bahunya/dist/bahunya.min.css"
   />
   <Component {...pageProps} />
   </>
