@@ -1,9 +1,0 @@
-{
-    "version" : 2,
-    "env" : {
-        "PUSHER_APP_ID" : "@channels-app-id",
-        "PUSHER_APP_KEY" : "406974db40ff8341c47c",
-        "PUSHER_APP_SECRET" : "@channels-app-secret",
-        "PUSHER_APP_CLUSTER" : "ap2"
-    }
-}
